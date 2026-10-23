@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Память дома — цифровой паспорт вашей квартиры: вещи, напоминания, документы и полезные советы.">
-  <title>Главная — Память дома</title>
+  <title>Память дома — цифровой паспорт квартиры</title>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./mvp.css">
+  <script src="./storage.js" defer></script>
+  <script src="./app.js" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
@@ -41,36 +44,36 @@
   <section class="app-layout" aria-label="Панель управления домом">
     <aside class="sidebar" aria-label="Боковая панель">
       <header class="brand">
-        <a class="brand-logo" href="#top" aria-label="Память дома — перейти на главную">
+        <a class="brand-logo" href="#/home" aria-label="Память дома — перейти на главную">
           <svg class="icon logo-mark"><use href="#i-logo"></use></svg>
         </a>
         <p class="brand-copy"><strong>Память дома</strong><small>цифровой паспорт вашей<br>квартиры</small></p>
       </header>
       <nav class="main-nav" aria-label="Основные разделы">
         <ul>
-          <li><a class="nav-link active" aria-current="page" href="#main-content"><svg class="icon"><use href="#i-home"></use></svg><span>Главная</span></a></li>
-          <li><a class="nav-link" href="#categories"><svg class="icon"><use href="#i-bag"></use></svg><span>Мои вещи</span></a></li>
-          <li><a class="nav-link" href="#reminders"><svg class="icon"><use href="#i-bell"></use></svg><span>Напоминания</span><span class="nav-count" aria-label="3 напоминания">3</span></a></li>
-          <li><a class="nav-link" href="#documents"><svg class="icon"><use href="#i-file"></use></svg><span>Документы</span></a></li>
-          <li><a class="nav-link" href="#tip"><svg class="icon"><use href="#i-like"></use></svg><span>Полезное</span></a></li>
-          <li><a class="nav-link" href="#family"><svg class="icon"><use href="#i-users"></use></svg><span>Семья</span></a></li>
-          <li><span class="nav-link nav-future" aria-label="Настройки — раздел будет добавлен позднее"><svg class="icon"><use href="#i-settings"></use></svg><span>Настройки</span></span></li>
+          <li><a class="nav-link active" data-nav="home" aria-current="page" href="#/home"><svg class="icon"><use href="#i-home"></use></svg><span>Главная</span></a></li>
+          <li><a class="nav-link" data-nav="items" href="#/items"><svg class="icon"><use href="#i-bag"></use></svg><span>Мои вещи</span></a></li>
+          <li><a class="nav-link" data-nav="reminders" href="#/reminders"><svg class="icon"><use href="#i-bell"></use></svg><span>Напоминания</span><span class="nav-count" aria-label="3 напоминания">3</span></a></li>
+          <li><a class="nav-link" data-nav="documents" href="#/documents"><svg class="icon"><use href="#i-file"></use></svg><span>Документы</span></a></li>
+          <li><a class="nav-link" data-nav="useful" href="#/useful"><svg class="icon"><use href="#i-like"></use></svg><span>Полезное</span></a></li>
+          <li><a class="nav-link" data-nav="family" href="#/family"><svg class="icon"><use href="#i-users"></use></svg><span>Семья</span></a></li>
+          <li><a class="nav-link" data-nav="settings" href="#/settings"><svg class="icon"><use href="#i-settings"></use></svg><span>Настройки</span></a></li>
         </ul>
       </nav>
     </aside>
 
     <section class="workspace" aria-label="Рабочая область">
       <header class="topbar">
-        <form class="global-search" role="search" action="./index.html" method="get">
+        <form class="global-search" id="global-search-form" role="search">
           <label class="sr-only" for="search-query">Найти вещь, документ или совет</label>
           <button type="submit" aria-label="Найти"><svg class="icon"><use href="#i-search"></use></svg></button>
           <input id="search-query" type="search" name="q" placeholder="Найти вещь, документ или совет...">
         </form>
-        <!-- На этом этапе кнопки без бизнес-логики: только HTML-прототип. -->
-        <button class="add-button" type="button" disabled title="Добавление вещей будет реализовано на следующем этапе"><svg class="icon"><use href="#i-plus"></use></svg>Добавить вещь</button>
-        <button class="icon-button" type="button" disabled aria-label="Уведомления — в разработке" title="Уведомления будут реализованы позже"><svg class="icon"><use href="#i-bell"></use></svg></button>
-        <button class="icon-button" type="button" disabled aria-label="Переключение темы — в разработке" title="Переключение темы будет реализовано позже"><svg class="icon"><use href="#i-moon"></use></svg></button>
-        <button class="profile-button" type="button" disabled title="Меню профиля будет реализовано позже" aria-label="Профиль Дмитрия — в разработке">
+        <!-- Ключевой сценарий MVP: добавление и просмотр сохранённых вещей. -->
+        <button class="add-button" id="top-add" type="button"><svg class="icon"><use href="#i-plus"></use></svg>Добавить вещь</button>
+        <button class="icon-button" type="button" data-action="notifications" aria-label="Уведомления"><svg class="icon"><use href="#i-bell"></use></svg></button>
+        <button class="icon-button" type="button" data-action="theme" aria-label="Переключить тему"><svg class="icon"><use href="#i-moon"></use></svg></button>
+        <button class="profile-button" type="button" data-action="profile" aria-label="Профиль Дмитрия">
           <img src="./assets/avatar.png" alt="" width="44" height="44">
           <span>Дмитрий</span>
           <svg class="icon"><use href="#i-down"></use></svg>
@@ -78,6 +81,7 @@
       </header>
 
       <main id="main-content">
+        <section id="page-home" class="page-view" aria-label="Главная страница">
         <section class="hero" aria-labelledby="greeting-title">
           <img class="hero-photo" src="./assets/living-room.jpg" alt="Светлая гостиная с большим диваном, растениями и панорамными шторами" width="1150" height="280">
           <header class="hero-message">
@@ -99,7 +103,7 @@
           <section class="panel reminders-panel" id="reminders" aria-labelledby="reminders-title">
             <header class="panel-heading">
               <h2 id="reminders-title"><svg class="icon"><use href="#i-calendar"></use></svg>Ближайшие дела</h2>
-              <a href="#reminder-list" class="more-link">Все дела <svg class="icon"><use href="#i-arrow"></use></svg></a>
+              <a href="#/reminders" class="more-link">Все дела <svg class="icon"><use href="#i-arrow"></use></svg></a>
             </header>
             <ul id="reminder-list" class="reminder-list">
               <li><article class="reminder-row">
@@ -124,7 +128,7 @@
             <section class="panel categories-panel" id="categories" aria-labelledby="categories-title">
               <header class="panel-heading">
                 <h2 id="categories-title"><svg class="icon"><use href="#i-tools"></use></svg>Последние события</h2>
-                <a href="#category-list" class="more-link">Все категории <svg class="icon"><use href="#i-arrow"></use></svg></a>
+                <a href="#/items" class="more-link">Все категории <svg class="icon"><use href="#i-arrow"></use></svg></a>
               </header>
               <ul class="category-list" id="category-list" aria-label="Количество вещей по категориям">
                 <li><article class="category-card"><span class="category-icon appliance" aria-hidden="true"><svg class="icon"><use href="#i-appliance"></use></svg></span><h3>Бытовая техника</h3><p>8</p></article></li>
@@ -138,16 +142,23 @@
 
             <aside class="tip-panel" id="tip" aria-labelledby="tip-title">
               <header class="tip-heading"><h2 id="tip-title"><svg class="icon"><use href="#i-leaf"></use></svg>Полезный совет</h2>
-                <button type="button" disabled title="Подбор советов появится позднее">Другой совет <svg class="icon"><use href="#i-refresh"></use></svg></button>
+                <button type="button" data-action="tip">Другой совет <svg class="icon"><use href="#i-refresh"></use></svg></button>
               </header>
               <p>Регулярная чистка фильтров кондиционера повышает его эффективность и продлевает срок службы до <strong>2 лет</strong>.</p>
               <svg class="tip-plant" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M40 75V28M40 58C25 57 16 46 13 34c16 2 26 9 27 24Zm1-15c16-3 24-15 25-29-17 4-25 15-25 29Zm-2-11C25 28 23 17 25 7c11 4 16 12 14 25Zm3 22c13-2 22-10 26-21-15 1-23 9-26 21ZM30 75h22l-4 5H34z"/></svg>
             </aside>
           </section>
         </section>
+        </section>
+        <section id="page-items" class="page-view" hidden aria-label="Мои вещи"></section>
+        <section id="page-detail" class="page-view" hidden aria-label="Карточка вещи"></section>
+        <section id="page-form" class="page-view" hidden aria-label="Добавление или редактирование вещи"></section>
+        <section id="page-secondary" class="page-view" hidden aria-label="Дополнительный раздел"></section>
       </main>
-      <footer class="sr-only"><p>Память дома — прототип главной страницы. Данные демонстрационные.</p></footer>
+      <footer class="sr-only"><p>Память дома — первая локальная версия цифрового паспорта квартиры.</p></footer>
     </section>
   </section>
+<output id="toast" class="toast" role="status" aria-live="polite" hidden></output>
+  <dialog id="app-dialog" class="app-dialog" aria-label="Дополнительное действие"></dialog>
 </body>
 </html>
