@@ -2,11 +2,11 @@
 
 «Память дома» - цифровой паспорт квартиры или дома, предназначенный для централизованного хранения сведений о помещениях, ремонте, оборудовании, документах, полезных контактах и событиях эксплуатации жилья.
 
-Дизайн: https://www.figma.com/design/7ahFsd8cQZmEvoKNm9GFAe/Untitled?node-id=0-1&t=gHYigVlFYokygDOs-1 
+**Дизайн:** https://www.figma.com/design/7ahFsd8cQZmEvoKNm9GFAe/Untitled?node-id=0-1&t=gHYigVlFYokygDOs-1 
 
-YouGile: https://ru.yougile.com/team/b7e331ad0c88/%D0%9F%D0%B0%D0%BC%D1%8F%D1%82%D1%8C%20%D0%B4%D0%BE%D0%BC%D0%B0 
+**YouGile:** https://ru.yougile.com/team/b7e331ad0c88/%D0%9F%D0%B0%D0%BC%D1%8F%D1%82%D1%8C%20%D0%B4%D0%BE%D0%BC%D0%B0 
 
-Описание автотестов:
+**Описание автотестов:**
 | ID | Требование | Ожидаемое поведение | Автотест |
 |---|---|---|---|
 | REQ-1 | Поиск по названию | При поиске «Смеситель на кухне» отображается только одна подходящая карточка; по отсутствующему названию карточки не отображаются, показывается «Ничего не найдено». | `test_search_shows_only_matching_items_and_empty_state` |
@@ -16,11 +16,11 @@ YouGile: https://ru.yougile.com/team/b7e331ad0c88/%D0%9F%D0%B0%D0%BC%D1%8F%D1%82
 Требования выбраны из основного сценария MVP: пользователь добавляет объект, сохраняет информацию о нём и позднее находит эту информацию. Тесты не охватывают незавершённые разделы «Семья», «Напоминания», серверную авторизацию и базу данных.
 
 
-Инструкция по запуску автотестов:
+**Инструкция по запуску автотестов:**
 1. Открываем файл index.html в VS Code
 2. Запускаем терминал
 3. Вводим последовательно следующий список команд:
-   3.1. python -m pip install -r requirements-test.txt
-   3.2. python -m playwright install chromium
-   3.3. python -m pytest -v
+    3.1. python -m pip install -r requirements-test.txt
+    3.2. python -m playwright install chromium
+    3.3. python -m pytest -v
 После чего происходит тестирование. Результат PASSED означает, что тест пройден успешно, FAILED - тест обнаружил несоответствие ожидаемому поведению, а ERROR обозначает ошибки подготовки или выполнения теста.
