@@ -474,7 +474,7 @@ button:disabled { opacity: 1; cursor: default; }
   .reminder-text p, .reminder-row time { font-size: 14px; }
 }
 
-/* 09. Под планшеты: основной контент в один столбец */
+/* 09. Планшеты: основной контент в один столбец */
 @media (max-width: 1050px) {
   :root { --sidebar-width: 185px; }
   .sidebar { padding-inline: 10px; }
@@ -493,7 +493,7 @@ button:disabled { opacity: 1; cursor: default; }
   .hero-message h1 { white-space: normal; }
 }
 
-/* 10. Под телефоны: меню горизонтальное, поиск на новой строке */
+/* 10. Телефоны: меню горизонтальное, поиск на новой строке */
 @media (max-width: 700px) {
   :root { --content-padding: 12px; }
   .app-layout { display: block; }
@@ -559,7 +559,7 @@ button:disabled { opacity: 1; cursor: default; }
   .tip-panel { min-height: 112px; }
 }
 
-/* 11. Под узкие телефоны: даты под описанием, без горизонтального скролла страницы */
+/* 11. Узкие телефоны: даты под описанием, без горизонтального скролла страницы */
 @media (max-width: 420px) {
   .topbar { gap: 8px; }
   .add-button { flex: 1 1 140px; font-size: 15px; }
