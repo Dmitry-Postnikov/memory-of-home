@@ -20,7 +20,8 @@
 1. Открываем файл index.html в VS Code
 2. Запускаем терминал
 3. Вводим последовательно следующий список команд:
-    3.1. python -m pip install -r requirements-test.txt
-    3.2. python -m playwright install chromium
-    3.3. python -m pytest -v
+    1. python -m pip install -r requirements-test.txt
+    2. python -m playwright install chromium
+    3. python -m pytest -v
+
 После чего происходит тестирование. Результат PASSED означает, что тест пройден успешно, FAILED - тест обнаружил несоответствие ожидаемому поведению, а ERROR обозначает ошибки подготовки или выполнения теста.
